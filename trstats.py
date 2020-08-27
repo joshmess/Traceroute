@@ -4,7 +4,7 @@ import json
 
 
 # Author: Josh Messitte (811976008)
-# CSCI 6760 Project 1: Traceroute
+# CSCI 6760 Project 1: Traceroute Wrapper Program
 
 # Main method
 if __name__ == '__main__':
