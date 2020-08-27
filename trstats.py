@@ -164,7 +164,6 @@ if __name__ == '__main__':
         # Remove duplicate hosts
         hc = 1
         for hop in hosts_by_hop:
-            print('Hop: ',hc)
             hc += 1
             host_list = "[("
             for host in hop:
@@ -186,16 +185,21 @@ if __name__ == '__main__':
             hop_avgs.append(hop_total/len(hop))
             hop_maxs.append(hop[len(hop)-1])
             hop_mins.append(hop[0])
-            hop_meds.append(hop[len(hop)/2])
+            if len(hop) % 2 == 0:
+                hop_meds.append(hop[int(len(hop)/2)])
+            elif len(hop) % 2 == 1:
+                hop_meds.append(hop[int(len(hop)/2)])
+            
 
         if len(times_by_hop) == len(hosts_by_hop):
             hop_tracer = 0
+            json_obj = {}
+            json_obj['hops'] = []
             for hop in hosts_by_hop:
                 # Start formatting json file
-                json_obj = {}
-                json_obj['hops'] = []
                 json_obj['hops'].append({
                     'avg': hop_avgs[hop_tracer],
+                    'hop': hop_tracer+1,
                     'hosts': hop_hosts[hop_tracer],
                     'max': hop_maxs[hop_tracer],
                     'med': hop_meds[hop_tracer],
@@ -209,3 +213,5 @@ if __name__ == '__main__':
         outputf = args.output + '.json'
         with open(outputf, 'w') as jsonFile:
             json.dump(json_obj,jsonFile)
+
+        os.system('rm tr_output.txt')
