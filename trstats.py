@@ -208,3 +208,4 @@ if __name__ == '__main__':
 
         outputf = args.output + '.json'
         with open(outputf, 'w') as jsonFile:
+            json.dump(json_obj,jsonFile)
