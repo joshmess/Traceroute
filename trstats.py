@@ -4,11 +4,11 @@ import json
 
 
 # Author: Josh Messitte (811976008)
-# CSCI 6760 Project 1: Traceroute Wrapper Program
+# CSCI 6760 Project 1: trstats.py
+# Usage: python3 trstats.py -o OUTPUT [-n NUM_RUNS] [-t TARGET] [-m MAX_HOPS] [-d RUN_DELAY] [--test TEST_DIR]
 
 # Main method
 if __name__ == '__main__':
-
 
     # Set up argument parsing automation
     prog = 'python3 trstats.py'
@@ -39,7 +39,6 @@ if __name__ == '__main__':
         hosts_by_hop = []
         times_by_hop = []
 
-        
         while traceroute_counter < args.num_runs:
             # Outer TR loop
             tr_cmd = 'traceroute ' + target + ' > tr_output.txt'
@@ -50,16 +49,13 @@ if __name__ == '__main__':
             txt_f = open('tr_output.txt','r')
             count = 0
             
-            
             while True:
                 #File for each line of a txt file
                 curr = txt_f.readline()
 
-    
                 if len(curr) < 1:
                     break
-                
-                
+
                 if count > 0:
                     # Past first line
                     curr_hop = int(curr[1:2])
@@ -158,23 +154,57 @@ if __name__ == '__main__':
                 
             traceroute_counter += 1
 
-        
+        # Start calculations
+        hop_avgs = []
+        hop_hosts = []
+        hop_maxs = []
+        hop_mins = []
+        hop_meds = []
 
-        seen_hosts = []
+        # Remove duplicate hosts
         hc = 1
-        # Remove dups from arrays
         for hop in hosts_by_hop:
             print('Hop: ',hc)
             hc += 1
+            host_list = "[("
             for host in hop:
-                if host in seen_hosts:
+                if host in hop_hosts:
                     hop.remove(host)
                 else:
-                    print('Host: ',host)
+                    host_list += "'" + host[0:host.find(' ')] + "', '" + host[host.find(' ')+1] + "')],"
+            hop_hosts.append(host_list)
 
-        hc = 0
+        # Sort times array for easier math
         for hop in times_by_hop:
-            print('Hop: ',hc)
-            hc += 1
+            hop.sort()
+
+        # Compile statistics
+        for hop in times_by_hop:
+            hop_total = 0
             for time in hop:
-                print(time,' ms ')
+                hop_total += time
+            hop_avgs.append(hop_total/len(hop))
+            hop_maxs.append(hop[len(hop)-1])
+            hop_mins.append(hop[0])
+            hop_meds.append(hop[len(hop)/2])
+
+        if len(times_by_hop) == len(hosts_by_hop):
+            hop_tracer = 0
+            for hop in hosts_by_hop:
+                # Start formatting json file
+                json_obj = {}
+                json_obj['hops'] = []
+                json_obj['hops'].append({
+                    'avg': hop_avgs[hop_tracer],
+                    'hosts': hop_hosts[hop_tracer],
+                    'max': hop_maxs[hop_tracer],
+                    'med': hop_meds[hop_tracer],
+                    'min': hop_mins[hop_tracer]
+                })
+            hop_tracer += 1
+
+        else:
+            print('For some reason, the two tracker arrays have different lengths')
+
+        outputf = args.output + '.json'
+        with open(outputf, 'w') as jsonFile:
