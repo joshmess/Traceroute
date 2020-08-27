@@ -23,13 +23,14 @@ if __name__ == '__main__':
 
     # Parse the given arguments
     args = parser.parse_args()
-        
-    # A directiory of text files was provided // this conditional branch executes // DON'T run traceroute
+
     if args.test != None:
+        # A directiory of text files was provided // this conditional branch executes // DON'T run traceroute
         print ('Test directory was provided')
 
-    # NO test directory provided // RUN traceroute
+        
     else:
+        # NO test directory provided // RUN traceroute
         print('Running traceroute and measuring latency...')
         target = args.target
         traceroute_counter = 1
@@ -37,11 +38,10 @@ if __name__ == '__main__':
         # Will end up being 2-dim matrices for collecting data
         hosts_by_hop = []
         times_by_hop = []
-        
-        # Overall traceroute loop
-        while traceroute_counter < args.num_runs:
 
-            #print("traceroute run #:", traceroute_counter)
+        
+        while traceroute_counter < args.num_runs:
+            # Outer TR loop
             tr_cmd = 'traceroute ' + target + ' > tr_output.txt'
             tr_out = ''
             os.system(tr_cmd)
@@ -50,49 +50,96 @@ if __name__ == '__main__':
             txt_f = open('tr_output.txt','r')
             count = 0
             
-            # Iterate over file line by line
-            while True:
             
+            while True:
+                #File for each line of a txt file
                 curr = txt_f.readline()
 
-                # End of traceroute output
+    
                 if len(curr) < 1:
                     break
                 
-                # If past the first line
+                
                 if count > 0:
-                    curr_hop = int(curr[0:2])
-                    curr = curr[3:]
-                    double_space = curr.find('  ')
-                    millisecond = curr.find(' ms')
-                    open_par_index = curr.find('(')
+                    # Past first line
+                    curr_hop = int(curr[1:2])
+                    curr = curr[4:]
+
+                    total_parsets = curr.count('(')
+                    
                 
                     # If traceroute yields statistics, we will observe the 'ms' unit measurement
                     hosts = []
                     times = []
-                    # Pull first host-time matchup
-                    if ( millisecond != -1 )or( open_par_index != -1 ):
-
-                        if open_par_index != -1:
-                            hosts.append(curr[0:double_space])
-                        if millisecond != -1:
-                            times.append(curr[double_space+2:millisecond])
-                            curr = curr[millisecond+1]
-
-                    close_par_index = curr.find(')')
                     
-                    # There is a different host within THIS hop
-                    if close_par_index != -1:
-                        hosts.append(curr[4:close+par_index+1])
-                        millisecond = curr.find(' ms')
-                        if millisecond != -1:
-                            times.append(curr[close_par_index+3:millisecond])
-                            curr = curr[millisecon+1]
+                    # Pull first host-time matchup
+                    if total_parsets > 0:
 
-                    # The rest are ms time readings
-                    else:
+                        double_sp = curr.find('  ')
+                        msloc = curr.find(' ms')
+                        hosts.append(curr[0:double_sp])
+                        if curr[double_sp+2:msloc] != '*':
+                            times.append(float(curr[double_sp+2:msloc]))
+                        curr = curr[msloc+1:]
+
+                    total_parsets = curr.count('(')
+
+                    if total_parsets == 0:
+                        # Form: domain_(ip)__x_ms__x_ms__x_ms
+                        msloc = curr.find(' ms')
                         
+                        if msloc != -1 and curr[4:msloc] != '*':
+                            times.append(float(curr[4:msloc]))
+                        curr = curr[msloc+1:]
+                        msloc = curr.find(' ms')
+                        if msloc != -1 and curr[4:msloc] != '*':
+                            times.append(float(curr[4:msloc]))
                         
+
+                    elif total_parsets == 1:
+                        # Two total hosts for this single hop
+                        if curr.find('(') < curr.find('  '):
+                            #Form: domain_(ip)__x_ms_domain_(ip)__x_ms__x_ms
+                            double_sp = curr.find('  ')
+                            hosts.append(curr[3:double_sp])
+                            curr = curr[double_sp+2:]
+                            msloc = curr.find(' ms')
+                            if msloc != -1 and curr[0:msloc] != '*':
+                                times.append(float(curr[0:msloc]))
+                            curr = curr[msloc+1:]
+                            msloc = curr.find(' ms')
+                            if msloc != -1 and curr[4:msloc] != '*':
+                                times.append(float(curr[4:msloc]))
+                        elif curr.find('(') > curr.find('  '):
+                            # Form: domain_ip__x_ms__x_ms_domain_(ip)__x_ms
+                            msloc = curr.find(' ms')
+                            if msloc!= -1 and curr[4:msloc] != '*':
+                                times.append(float(curr[4:msloc]))
+                            curr = curr[msloc+1:]
+                            double_sp = curr.find('  ')
+                            hosts.append(curr[3:double_sp])
+                            curr = curr[double_sp+2:]
+                            msloc = curr.find(' ms')
+                            if msloc != -1 and curr[0:msloc] != '*':
+                                times.append(float(curr[0:msloc]))
+
+                            
+                    # Form: domain_(ip)__x_ms_domain_(ip)__x_ms_domain_(ip)__x_ms
+                    elif total_parsets == 3:
+                        double_sp = curr.find('  ')
+                        hosts.append(curr[3:double_sp])
+                        curr = curr[double_sp+2:]
+                        msloc = curr.find(' ms')
+                        
+                        if msloc != -1 and curr[0:msloc] != '*':
+                            times.append(float(curr[0:msloc]))
+                        curr = curr[msloc+1:]
+                        double_sp = curr.find('  ')
+                        hosts.append(curr[3:double_sp])
+                        curr = curr[double_sp+2:]
+                        msloc = curr.find(' ms')
+                        if msloc != 0 and curr[0:msloc] != '*':
+                            times.append(float(curr[0:msloc]))
 
                     # Update hosts
                     if len(hosts_by_hop) < curr_hop:
@@ -100,19 +147,7 @@ if __name__ == '__main__':
                     else:
                         hosts_by_hop[curr_hop-1].extend(hosts)
 
-                    # Store each hop time in ms
-                    
-                    i = 0
-                    #print("curr:", curr, "hop: ", curr_hop)
-                    while i < 3:
-                        index_of_ms = curr.find('ms')
-                        if(index_of_ms == -1):
-                            break
-                        next_time = float(curr[3:index_of_ms-1])
-                        curr = curr[index_of_ms+1:]
-                        times.append(next_time)
-                        i += 1
-
+        
                     # Update times
                     if len(times_by_hop) < curr_hop:
                         times_by_hop.append(times)
@@ -122,15 +157,24 @@ if __name__ == '__main__':
                 count += 1
                 
             traceroute_counter += 1
-            
-        print('end of both loops')
 
-        for hop in hosts_by_hop:
-            for host in hop:
-                print("Host:",host)
-
-        for hop in times_by_hop:
-            for time in hop:
-                print("Time:",time)
-                
         
+
+        seen_hosts = []
+        hc = 1
+        # Remove dups from arrays
+        for hop in hosts_by_hop:
+            print('Hop: ',hc)
+            hc += 1
+            for host in hop:
+                if host in seen_hosts:
+                    hop.remove(host)
+                else:
+                    print('Host: ',host)
+
+        hc = 0
+        for hop in times_by_hop:
+            print('Hop: ',hc)
+            hc += 1
+            for time in hop:
+                print(time,' ms ')
