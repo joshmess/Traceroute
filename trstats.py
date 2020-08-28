@@ -197,21 +197,29 @@ if __name__ == '__main__':
                     hop_meds.append(hop[int(len(hop) / 2)])
                 elif len(hop) % 2 == 1:
                     hop_meds.append(hop[int(len(hop) / 2)])
+            else:
+                hop_avgs.append(0)
+                hop_maxs.append(0)
+                hop_mins.append(0)
+                hop_meds.append(0)
+        
         if len(times_by_hop) == len(hosts_by_hop):
             hop_tracer = 0
             json_obj = []
-
+            
             for hop in hosts_by_hop:
-                # Start formatting json file
-                json_obj.append({
-                    'avg': hop_avgs[hop_tracer],
-                    'hop': hops_seen[hop_tracer],
-                    'hosts': hop_hosts[hop_tracer],
-                    'max': hop_maxs[hop_tracer],
-                    'med': hop_meds[hop_tracer],
-                    'min': hop_mins[hop_tracer]
-                })
-                hop_tracer += 1
+
+                if hop_hosts[hop_tracer] != '[()]':
+                    # Start formatting json file
+                    json_obj.append({
+                        'avg': hop_avgs[hop_tracer],
+                        'hop': hops_seen[hop_tracer],
+                        'hosts': hop_hosts[hop_tracer],
+                        'max': hop_maxs[hop_tracer],
+                        'med': hop_meds[hop_tracer],
+                        'min': hop_mins[hop_tracer]
+                    })
+                    hop_tracer += 1
 
         else:
             print('For some reason, the two tracker arrays have different lengths')
