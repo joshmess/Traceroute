@@ -233,9 +233,9 @@ if __name__ == '__main__':
 
         outputf = args.output + '.json'
         with open(outputf, 'w') as jsonFile:
-            for hop in json_obj:
-                json.dump(hop, jsonFile)
-                jsonFile.write('\n')
+            #for hop in json_obj:
+            json.dump(json_obj, jsonFile,indent = 2)
+                #jsonFile.write('\n')
 
             
             
