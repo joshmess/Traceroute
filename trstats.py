@@ -42,7 +42,9 @@ if __name__ == '__main__':
         hosts_by_hop = []
         times_by_hop = []
         hops_seen = []
+        
         while traceroute_counter <= args.num_runs:
+            
             # Outer TR loop
             tr_cmd = 'traceroute ' + target + ' > tr_output.txt'
             tr_out = ''
@@ -80,6 +82,7 @@ if __name__ == '__main__':
 
                         double_sp = curr.find('  ')
                         msloc = curr.find(' ms')
+                        
                         hosts.append(curr[0:double_sp])
                         if curr[double_sp + 2:msloc] != '*':
                             times.append(float(curr[double_sp + 2:msloc]))
@@ -167,19 +170,22 @@ if __name__ == '__main__':
         hop_mins = []
         hop_meds = []
 
-        # Remove duplicate hosts
-        hc = 1
+        # Remove duplicate host
         for hop in hosts_by_hop:
-            hc += 1
+
             host_list = "[("
             for host in hop:
-                if host in hop_hosts:
+                
+                domain = host[0:host.find(' ')]
+                if host_list.find(domain) != -1:
                     hop.remove(host)
                 else:
                     host_list += "'" + host[0:host.find(' ')] + "', '" + host[host.find(' ') + 1:] + "',"
             host_list += ')]'
             hop_hosts.append(host_list)
 
+        
+        
         # Sort times array for easier math
         for hop in times_by_hop:
             hop.sort()
@@ -206,10 +212,11 @@ if __name__ == '__main__':
         if len(times_by_hop) == len(hosts_by_hop):
             hop_tracer = 0
             json_obj = []
-            
+
+
             for hop in hosts_by_hop:
 
-                if hop_hosts[hop_tracer] != '[()]':
+                if len(hop_avgs) != 0:
                     # Start formatting json file
                     json_obj.append({
                         'avg': hop_avgs[hop_tracer],
@@ -230,4 +237,6 @@ if __name__ == '__main__':
                 json.dump(hop, jsonFile)
                 jsonFile.write('\n')
 
+            
+            
         os.system('rm tr_output.txt')
