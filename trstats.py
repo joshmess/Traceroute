@@ -31,7 +31,7 @@ if __name__ == '__main__':
         # A directiory of text files was provided // this conditional branch executes // DON'T run traceroute
         dir_path = args.test
         file_list = []
-        for files in os.walk(dir_path):
+        for folder, subfolder, files in os.walk(dir_path):
             for f in files:
                 complete_path = os.path.join(folder, f)
                 file_list.append(complete_path)
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         for item in file_list:
             # Iterate over all files
             txt_f = open(item,'r')
-
+            count = 0
             while True:
                 # File for each line of a txt file
                 curr = txt_f.readline()
