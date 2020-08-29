@@ -197,10 +197,11 @@ if __name__ == '__main__':
         if len(times_by_hop) == len(hosts_by_hop):
             hop_tracer = 0
             json_obj = []
-
+            already_added = []
             for hop in hosts_by_hop:
 
-                if len(hop) != 0:
+                if len(hop) != 0 and hop_hosts[hop_tracer] != '[)]' and hops_seen[hop_tracer] not in already_added:
+                    already_added.append(hops_seen[hop_tracer])
                     # Start formatting json file
                     json_obj.append({
                         'avg': hop_avgs[hop_tracer],
@@ -400,10 +401,11 @@ if __name__ == '__main__':
         if len(times_by_hop) == len(hosts_by_hop):
             hop_tracer = 0
             json_obj = []
-
+            already_seen = []
             for hop in hosts_by_hop:
 
-                if len(hop) != 0:
+                if len(hop) != 0 and host_list != 'No traceroure-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
+                    already_seen.append(hops_seen[hop_tracer])
                     # Start formatting json file
                     json_obj.append({
                         'avg': hop_avgs[hop_tracer],
