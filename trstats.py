@@ -181,7 +181,11 @@ if __name__ == '__main__':
                     hop.remove(host)
                 else:
                     host_list += "'" + host[0:host.find(' ')] + "', '" + host[host.find(' ') + 1:] + "',"
+
+            host_list = host_list[0:len(host_list)-1]
             host_list += ')]'
+            if host_list == '[)]':
+                host_list = 'No traceroute-detectable hosts'
             hop_hosts.append(host_list)
 
         
@@ -213,10 +217,10 @@ if __name__ == '__main__':
             hop_tracer = 0
             json_obj = []
 
-
             for hop in hosts_by_hop:
-
-                if len(hop_avgs) != 0:
+                
+            
+                if len(hop) != 0:
                     # Start formatting json file
                     json_obj.append({
                         'avg': hop_avgs[hop_tracer],
@@ -233,9 +237,8 @@ if __name__ == '__main__':
 
         outputf = args.output + '.json'
         with open(outputf, 'w') as jsonFile:
-            #for hop in json_obj:
             json.dump(json_obj, jsonFile,indent = 2)
-                #jsonFile.write('\n')
+                
 
             
             
