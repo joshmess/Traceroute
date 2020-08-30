@@ -432,7 +432,7 @@ if __name__ == '__main__':
             json.dump(json_obj, jsonFile, indent=2)
 
         
-        fig = px.box(data_frame)
+        fig = px.box(data_frame,x=0,y=1)
         fig.write_image(outputpic,engine='kaleido')
         
         os.system('rm tr_output.txt')
