@@ -411,6 +411,7 @@ if __name__ == '__main__':
 
                 if len(hop) != 0 and host_list != 'No traceroure-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
                     already_seen.append(hops_seen[hop_tracer])
+            
                     data_frame.append(times_by_hop[hop_tracer])
                     # Start formatting json file
                     json_obj.append({
@@ -432,7 +433,7 @@ if __name__ == '__main__':
             json.dump(json_obj, jsonFile, indent=2)
 
         
-        fig = px.box(data_frame,x=0,y=1,labels = {0:'hop',1:'ms'})
+        fig = px.box(data_frame,x=0,y=1)
         fig.write_image(outputpic,engine='kaleido')
         
         os.system('rm tr_output.txt')
