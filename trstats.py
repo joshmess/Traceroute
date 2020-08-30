@@ -1,6 +1,9 @@
 import sys, os
 import argparse
 import json
+import plotly.express as px
+import plotly.io as pio
+
 
 # Author: Josh Messitte (811976008)
 # CSCI 6760 Project 1: trstats.py
@@ -398,6 +401,8 @@ if __name__ == '__main__':
                 hop_mins.append(0)
                 hop_meds.append(0)
 
+        data_frame = []
+
         if len(times_by_hop) == len(hosts_by_hop):
             hop_tracer = 0
             json_obj = []
@@ -406,6 +411,7 @@ if __name__ == '__main__':
 
                 if len(hop) != 0 and host_list != 'No traceroure-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
                     already_seen.append(hops_seen[hop_tracer])
+                    data_frame.append(times_by_hop[hop_tracer])
                     # Start formatting json file
                     json_obj.append({
                         'avg': hop_avgs[hop_tracer],
@@ -421,7 +427,12 @@ if __name__ == '__main__':
             print('For some reason, the two tracker arrays have different lengths')
 
         outputf = args.output + '.json'
+        outputpic = args.output + '.pdf'
         with open(outputf, 'w') as jsonFile:
             json.dump(json_obj, jsonFile, indent=2)
 
+        
+        fig = px.box(data_frame)
+        fig.write_image(outputpic,engine='kaleido')
+        
         os.system('rm tr_output.txt')
