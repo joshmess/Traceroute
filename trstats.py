@@ -411,10 +411,9 @@ if __name__ == '__main__':
 
                 if len(hop) != 0 and host_list != 'No traceroure-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
                     already_seen.append(hops_seen[hop_tracer])
-                    hop = 'hop'
+                    hop = 'hop '
                     trace = go.Box(
                         y = times_by_hop[hop_tracer],
-                        x = times_by_hop,
                         name = hop + str(hop_tracer+1)
                         )
                     data_frame.append(trace)
