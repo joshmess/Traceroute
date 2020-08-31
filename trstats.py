@@ -439,5 +439,6 @@ if __name__ == '__main__':
         layout = go.Layout(title = 'Distribution of Traceroute Latency')
         
         fig = go.Figure(data = data_frame,layout = layout)
+        fig.write_image(outputpic,engine = 'kaleido')
         
         os.system('rm tr_output.txt')
