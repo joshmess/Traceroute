@@ -4,7 +4,6 @@ import json
 import plotly.graph_objects as go
 import plotly.io as pio
 
-
 # Author: Josh Messitte (811976008)
 # CSCI 6760 Project 1: trstats.py
 # Usage: python3 trstats.py -o OUTPUT [-n NUM_RUNS] [-t TARGET] [-m MAX_HOPS] [-d RUN_DELAY] [--test TEST_DIR]
@@ -16,13 +15,14 @@ if __name__ == '__main__':
     prog = 'python3 trstats.py'
     descr = 'Python Wrapper Script to Analyze Traceroute Performance'
     parser = argparse.ArgumentParser(prog=prog, description=descr)
-    parser.add_argument('-o', '--output', type=str, default='output.json', required=True,help='Path and Name of outpt '
-                                                                                              'JSON')
+    parser.add_argument('-o', '--output', type=str, default='output.json', required=True, help='Path and Name of outpt '
+                                                                                               'JSON')
     parser.add_argument('-n', '--num_runs', type=int, default=10, help='Number of times traceroute will run')
-    parser.add_argument('-d', '--run_delay', type=int, default=0,help='Number of seconds to wait between two '
-                                                                      'condsectuive runs')
+    parser.add_argument('-d', '--run_delay', type=int, default=0, help='Number of seconds to wait between two '
+                                                                       'condsectuive runs')
     parser.add_argument('-m', '--max_hops', type=int, default=100, help='Number of times traceroute will run')
-    parser.add_argument('-t', '--target', type=str, default='www.yahoo.co.jp',help='A target domain name or IP address')
+    parser.add_argument('-t', '--target', type=str, default='www.yahoo.co.jp',
+                        help='A target domain name or IP address')
     parser.add_argument('--test', '--test', type=str, default=None, help='Directory containing num_runs text files, '
                                                                          'each with traceroute output. If present, '
                                                                          'override and do not run traceroute.')
@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
         for item in file_list:
             # Iterate over all files
-            txt_f = open(item,'r')
+            txt_f = open(item, 'r')
             count = 0
             while True:
                 # File for each line of a txt file
@@ -197,14 +197,23 @@ if __name__ == '__main__':
                 hop_mins.append(0)
                 hop_meds.append(0)
 
+        data_frame = []
+
         if len(times_by_hop) == len(hosts_by_hop):
             hop_tracer = 0
             json_obj = []
             already_added = []
+
             for hop in hosts_by_hop:
 
-                if len(hop) != 0 and hop_hosts[hop_tracer] != 'No traceroute-detectable hosts' and hops_seen[hop_tracer] not in already_added:
+                if hop_hosts[hop_tracer] != 'No traceroute-detectable hosts' and hops_seen[hop_tracer] not in already_added:
                     already_added.append(hops_seen[hop_tracer])
+                    hop = 'hop '
+                    trace = go.Box(
+                        y=times_by_hop[hop_tracer],
+                        name=hop + str(hop_tracer + 1)
+                    )
+                    data_frame.append(trace)
                     # Start formatting json file
                     json_obj.append({
                         'avg': hop_avgs[hop_tracer],
@@ -215,13 +224,20 @@ if __name__ == '__main__':
                         'min': hop_mins[hop_tracer]
                     })
                     hop_tracer += 1
+                else:
+                    hop_tracer += 1
 
         else:
             print('For some reason, the two tracker arrays have different lengths')
 
         outputf = args.output + '.json'
+        outputpic = args.output + '.pdf'
         with open(outputf, 'w') as jsonFile:
             json.dump(json_obj, jsonFile, indent=2)
+        layout = go.Layout(title='Distribution of Traceroute Latency')
+        
+        fig = go.Figure(data=data_frame, layout=layout)
+        fig.write_image(outputpic, engine='kaleido')
 
 
 
@@ -239,7 +255,7 @@ if __name__ == '__main__':
         while traceroute_counter <= args.num_runs:
             # Outer TR loop
             # if traceroute_counter > 1:
-                # wait(args.run_delay)
+            # wait(args.run_delay)
 
             tr_cmd = 'traceroute ' + target + ' > tr_output.txt'
             tr_out = ''
@@ -377,7 +393,6 @@ if __name__ == '__main__':
                 host_list = 'No traceroute-detectable hosts'
             hop_hosts.append(host_list)
 
-
         for hop in times_by_hop:
             # Sort times array for easier math
             hop.sort()
@@ -407,16 +422,16 @@ if __name__ == '__main__':
             hop_tracer = 0
             json_obj = []
             already_seen = []
-            
+
             for hop in hosts_by_hop:
-                
+
                 if hop_hosts[hop_tracer] != 'No traceroute-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
                     already_seen.append(hops_seen[hop_tracer])
                     hop = 'hop '
                     trace = go.Box(
-                        y = times_by_hop[hop_tracer],
-                        name = hop + str(hop_tracer+1)
-                        )
+                        y=times_by_hop[hop_tracer],
+                        name=hop + str(hop_tracer + 1)
+                    )
                     data_frame.append(trace)
                     # Start formatting json file
                     json_obj.append({
@@ -429,7 +444,7 @@ if __name__ == '__main__':
                     })
                     hop_tracer += 1
                 else:
-                    #Undetecetable hop
+                    # Undetecetable hop
                     hop_tracer += 1
 
         else:
@@ -440,9 +455,8 @@ if __name__ == '__main__':
         with open(outputf, 'w') as jsonFile:
             json.dump(json_obj, jsonFile, indent=2)
 
-        
-        layout = go.Layout(title = 'Distribution of Traceroute Latency')        
-        fig = go.Figure(data = data_frame,layout = layout)
-        fig.write_image(outputpic,engine = 'kaleido')
-        
+        layout = go.Layout(title='Distribution of Traceroute Latency')
+        fig = go.Figure(data=data_frame, layout=layout)
+        fig.write_image(outputpic, engine='kaleido')
+
         os.system('rm tr_output.txt')
