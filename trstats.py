@@ -1,7 +1,7 @@
 import sys, os
 import argparse
 import json
-import plotly.express as px
+import plotly.graph_objects as go
 import plotly.io as pio
 
 
@@ -411,8 +411,11 @@ if __name__ == '__main__':
 
                 if len(hop) != 0 and host_list != 'No traceroure-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
                     already_seen.append(hops_seen[hop_tracer])
-            
-                    data_frame.append(times_by_hop[hop_tracer])
+                    trace = go.Box(
+                        y = times_by_hop[hop_tracer],
+                        name = 'Hop'
+                        )
+                    data_frame.append(trace)
                     # Start formatting json file
                     json_obj.append({
                         'avg': hop_avgs[hop_tracer],
@@ -433,7 +436,8 @@ if __name__ == '__main__':
             json.dump(json_obj, jsonFile, indent=2)
 
         
-        fig = px.box(data_frame,x=0,y=1)
-        fig.write_image(outputpic,engine='kaleido')
+        layout = go.Layout(title = 'Distribution of Traceroute Latency')
+        
+        fig = go.Figure(data = data_frame,layout = layout)
         
         os.system('rm tr_output.txt')
