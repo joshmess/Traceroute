@@ -368,7 +368,7 @@ if __name__ == '__main__':
             for host in hop:
                 domain = host[0:host.find(' ')]
                 if host_list.find(domain) != -1:
-                    hop.remove(host)
+                    host_list = host_list
                 else:
                     host_list += "'" + host[0:host.find(' ')] + "', '" + host[host.find(' ') + 1:] + "',"
             host_list = host_list[0:len(host_list) - 1]
@@ -407,9 +407,10 @@ if __name__ == '__main__':
             hop_tracer = 0
             json_obj = []
             already_seen = []
+            
             for hop in hosts_by_hop:
-
-                if len(hop) != 0 and host_list != 'No traceroure-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
+                
+                if hop_hosts[hop_tracer] != 'No traceroute-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
                     already_seen.append(hops_seen[hop_tracer])
                     hop = 'hop '
                     trace = go.Box(
@@ -426,6 +427,9 @@ if __name__ == '__main__':
                         'med': hop_meds[hop_tracer],
                         'min': hop_mins[hop_tracer]
                     })
+                    hop_tracer += 1
+                else:
+                    #Undetecetable hop
                     hop_tracer += 1
 
         else:
