@@ -411,9 +411,11 @@ if __name__ == '__main__':
 
                 if len(hop) != 0 and host_list != 'No traceroure-detectable hosts' and hops_seen[hop_tracer] not in already_seen:
                     already_seen.append(hops_seen[hop_tracer])
+                    hop = 'hop'
                     trace = go.Box(
                         y = times_by_hop[hop_tracer],
-                        name = 'Hop'
+                        x = times_by_hop,
+                        name = hop + str(hop_tracer+1)
                         )
                     data_frame.append(trace)
                     # Start formatting json file
@@ -436,8 +438,7 @@ if __name__ == '__main__':
             json.dump(json_obj, jsonFile, indent=2)
 
         
-        layout = go.Layout(title = 'Distribution of Traceroute Latency')
-        
+        layout = go.Layout(title = 'Distribution of Traceroute Latency')        
         fig = go.Figure(data = data_frame,layout = layout)
         fig.write_image(outputpic,engine = 'kaleido')
         
