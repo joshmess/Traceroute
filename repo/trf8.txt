@@ -1,0 +1,18 @@
+traceroute to www.twitter.com (104.244.42.65), 30 hops max, 60 byte packets
+ 1  172.17.149.1 (172.17.149.1)  0.787 ms  1.206 ms  1.650 ms
+ 2  128.192.0.5 (128.192.0.5)  0.271 ms  0.331 ms  0.414 ms
+ 3  1057-Life-BAgg-R.net.uga.edu (172.31.43.106)  0.902 ms  0.885 ms  1.174 ms
+ 4  1023-Boyd-Core-R.net.uga.edu (172.31.40.0)  0.814 ms 0042-Peabody-Core-R.net.uga.edu (172.31.41.2)  0.750 ms 1023-Boyd-Core-R.net.uga.edu (172.31.40.0)  1.089 ms
+ 5  Boyd-MX-re0.net.uga.edu (172.31.40.24)  0.618 ms Peabody-MX-re0.net.uga.edu (172.31.41.26)  0.599 ms Boyd-MX-re0.net.uga.edu (172.31.41.24)  0.577 ms
+ 6  172.31.47.9 (172.31.47.9)  0.921 ms  0.923 ms 172.31.47.25 (172.31.47.25)  1.051 ms
+ 7  Peabody-MX-re0.net.uga.edu (172.31.47.21)  1.270 ms  1.293 ms  1.254 ms
+ 8  trcpsx.net.uga.edu (128.192.166.41)  13.951 ms  6.689 ms  6.655 ms
+ 9  et-4-3-0.189.rtsw.atla.net.internet2.edu (198.71.47.165)  4.740 ms  4.762 ms  4.676 ms
+10  ae-4.4070.rtsw.chic.net.internet2.edu (198.71.45.60)  23.883 ms  23.784 ms  22.801 ms
+11  ae-2.4079.rtsw.eqch.net.internet2.edu (162.252.70.133)  23.997 ms  23.748 ms  23.863 ms
+12  ae-0.4079.rtsw.minn.net.internet2.edu (162.252.70.107)  30.634 ms  30.357 ms  30.325 ms
+13  lo-0.8.rtsw.seat.net.internet2.edu (64.57.20.253)  62.177 ms  62.204 ms  63.270 ms
+14  * * *
+15  Twitter.BE7.br03.sea01.pccwbtn.net (205.177.32.70)  69.363 ms  69.564 ms  69.266 ms
+16  * * *
+17  104.244.42.65 (104.244.42.65)  75.221 ms  74.758 ms  75.718 ms

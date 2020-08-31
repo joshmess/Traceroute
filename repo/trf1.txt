@@ -1,12 +1,18 @@
-traceroute to www.boozallen.com (104.16.44.92), 30 hops max, 60 byte packets
- 1  172.17.149.1 (172.17.149.1)  0.816 ms  1.225 ms  1.653 ms
- 2  128.192.0.5 (128.192.0.5)  0.428 ms  0.430 ms  0.434 ms
- 3  * * 1057-Life-BAgg-R.net.uga.edu (172.31.43.106)  1.393 ms
- 4  1023-Boyd-Core-R.net.uga.edu (172.31.40.2)  0.789 ms 1023-Boyd-Core-R.net.uga.edu (172.31.40.0)  0.796 ms  1.255 ms
- 5  Boyd-MX-re0.net.uga.edu (172.31.40.24)  0.425 ms Peabody-MX-re0.net.uga.edu (172.31.41.26)  0.628 ms  0.590 ms
- 6  172.31.47.9 (172.31.47.9)  1.066 ms 172.31.47.25 (172.31.47.25)  1.073 ms  1.056 ms
- 7  Boyd-MX-re0.net.uga.edu (172.31.47.5)  1.417 ms  1.291 ms Peabody-MX-re0.net.uga.edu (172.31.47.21)  1.955 ms
- 8  te0-17-0-4-8.ccr41.atl04.atlas.cogentco.com (38.122.46.161)  5.068 ms  3.971 ms  5.035 ms
- 9  be2788.ccr22.atl02.atlas.cogentco.com (154.54.5.193)  6.438 ms  5.228 ms  5.340 ms
-10  * * *
-11  104.16.44.92 (104.16.44.92)  4.785 ms  3.459 ms  4.748 ms
+traceroute to www.twitter.com (104.244.42.1), 30 hops max, 60 byte packets
+ 1  172.17.149.1 (172.17.149.1)  0.796 ms  1.213 ms  1.639 ms
+ 2  128.192.0.5 (128.192.0.5)  0.725 ms  0.823 ms  0.909 ms
+ 3  1023-Boyd-BAgg-R.net.uga.edu (172.31.42.106)  0.720 ms  1.256 ms 1057-Life-BAgg-R.net.uga.edu (172.31.43.106)  0.679 ms
+ 4  0042-Peabody-Core-R.net.uga.edu (172.31.41.0)  0.773 ms  1.194 ms 0042-Peabody-Core-R.net.uga.edu (172.31.41.2)  1.174 ms
+ 5  Boyd-MX-re0.net.uga.edu (172.31.41.24)  0.367 ms Peabody-MX-re0.net.uga.edu (172.31.41.26)  0.603 ms  0.601 ms
+ 6  172.31.47.9 (172.31.47.9)  0.920 ms 172.31.47.25 (172.31.47.25)  1.009 ms 172.31.47.9 (172.31.47.9)  0.922 ms
+ 7  Peabody-MX-re0.net.uga.edu (172.31.47.21)  1.277 ms Boyd-MX-re0.net.uga.edu (172.31.47.5)  1.446 ms  1.408 ms
+ 8  trcpsx.net.uga.edu (128.192.166.41)  4.602 ms  5.937 ms  5.821 ms
+ 9  et-4-3-0.189.rtsw.atla.net.internet2.edu (198.71.47.165)  4.793 ms  5.799 ms  4.745 ms
+10  ae-4.4070.rtsw.chic.net.internet2.edu (198.71.45.60)  22.728 ms  22.901 ms  22.774 ms
+11  ae-2.4079.rtsw.eqch.net.internet2.edu (162.252.70.133)  24.144 ms  23.937 ms  23.893 ms
+12  ae-0.4079.rtsw.minn.net.internet2.edu (162.252.70.107)  30.646 ms  30.608 ms  30.279 ms
+13  lo-0.8.rtsw.seat.net.internet2.edu (64.57.20.253)  64.422 ms  63.891 ms  64.725 ms
+14  * * *
+15  Twitter.BE7.br03.sea01.pccwbtn.net (205.177.32.70)  69.280 ms  70.588 ms  70.556 ms
+16  * * *
+17  104.244.42.1 (104.244.42.1)  75.146 ms  73.348 ms  75.092 ms
