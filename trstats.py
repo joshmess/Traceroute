@@ -203,7 +203,7 @@ if __name__ == '__main__':
             already_added = []
             for hop in hosts_by_hop:
 
-                if len(hop) != 0 and hop_hosts[hop_tracer] != '[)]' and hops_seen[hop_tracer] not in already_added:
+                if len(hop) != 0 and hop_hosts[hop_tracer] != 'No traceroute-detectable hosts' and hops_seen[hop_tracer] not in already_added:
                     already_added.append(hops_seen[hop_tracer])
                     # Start formatting json file
                     json_obj.append({
