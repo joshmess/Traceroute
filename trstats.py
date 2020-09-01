@@ -3,6 +3,7 @@ import argparse
 import json
 import plotly.graph_objects as go
 import plotly.io as pio
+import time
 
 # Author: Josh Messitte (811976008)
 # CSCI 6760 Project 1: trstats.py
@@ -255,7 +256,7 @@ if __name__ == '__main__':
         while traceroute_counter <= args.num_runs:
             # Outer TR loop
             # if traceroute_counter > 1:
-            # wait(args.run_delay)
+            time.sleep(args.run_delay)
 
             tr_cmd = 'traceroute ' + target + ' > tr_output.txt'
             tr_out = ''
