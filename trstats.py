@@ -216,14 +216,12 @@ if __name__ == '__main__':
                     )
                     data_frame.append(trace)
                     # Start formatting json file
-                    json_obj.append({
-                        'avg': hop_avgs[hop_tracer],
+                    json_obj.append({'avg': hop_avgs[hop_tracer],
                         'hop': hops_seen[hop_tracer],
                         'hosts': hop_hosts[hop_tracer],
                         'max': hop_maxs[hop_tracer],
                         'med': hop_meds[hop_tracer],
-                        'min': hop_mins[hop_tracer]
-                    })
+                        'min': hop_mins[hop_tracer]})
                     hop_tracer += 1
                 else:
                     hop_tracer += 1
@@ -234,7 +232,7 @@ if __name__ == '__main__':
         outputf = args.output + '.json'
         outputpic = args.output + '.pdf'
         with open(outputf, 'w') as jsonFile:
-            json.dump(json_obj, jsonFile, indent=2)
+            json.dump(json_obj, jsonFile, indent=0)
         layout = go.Layout(title='Distribution of Traceroute Latency')
         
         fig = go.Figure(data=data_frame, layout=layout)
@@ -435,14 +433,12 @@ if __name__ == '__main__':
                     )
                     data_frame.append(trace)
                     # Start formatting json file
-                    json_obj.append({
-                        'avg': hop_avgs[hop_tracer],
+                    json_obj.append({'avg': hop_avgs[hop_tracer],
                         'hop': hops_seen[hop_tracer],
                         'hosts': hop_hosts[hop_tracer],
                         'max': hop_maxs[hop_tracer],
                         'med': hop_meds[hop_tracer],
-                        'min': hop_mins[hop_tracer]
-                    })
+                        'min': hop_mins[hop_tracer]})
                     hop_tracer += 1
                 else:
                     # Undetecetable hop
@@ -454,7 +450,7 @@ if __name__ == '__main__':
         outputf = args.output + '.json'
         outputpic = args.output + '.pdf'
         with open(outputf, 'w') as jsonFile:
-            json.dump(json_obj, jsonFile, indent=2)
+            json.dump(json_obj, jsonFile, indent=0)
 
         layout = go.Layout(title='Distribution of Traceroute Latency')
         fig = go.Figure(data=data_frame, layout=layout)
