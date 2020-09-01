@@ -255,8 +255,8 @@ if __name__ == '__main__':
 
         while traceroute_counter <= args.num_runs:
             # Outer TR loop
-            # if traceroute_counter > 1:
-            time.sleep(args.run_delay)
+            if traceroute_counter > 1:
+                time.sleep(args.run_delay)
 
             tr_cmd = 'traceroute ' + target + ' > tr_output.txt'
             tr_out = ''
