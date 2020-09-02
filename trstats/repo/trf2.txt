@@ -1,0 +1,12 @@
+traceroute to www.boozallen.com (104.16.181.96), 30 hops max, 60 byte packets
+ 1  172.17.149.1 (172.17.149.1)  0.845 ms  1.244 ms  1.679 ms
+ 2  128.192.0.5 (128.192.0.5)  0.340 ms  0.394 ms  0.478 ms
+ 3  1057-Life-BAgg-R.net.uga.edu (172.31.43.106)  0.803 ms 1023-Boyd-BAgg-R.net.uga.edu (172.31.42.106)  1.373 ms  1.356 ms
+ 4  0042-Peabody-Core-R.net.uga.edu (172.31.41.0)  0.744 ms 0042-Peabody-Core-R.net.uga.edu (172.31.41.2)  0.743 ms  1.180 ms
+ 5  Peabody-MX-re0.net.uga.edu (172.31.41.26)  0.568 ms Peabody-MX-re0.net.uga.edu (172.31.40.26)  0.365 ms Peabody-MX-re0.net.uga.edu (172.31.41.26)  0.538 ms
+ 6  172.31.47.9 (172.31.47.9)  0.981 ms 172.31.47.25 (172.31.47.25)  1.073 ms 172.31.47.9 (172.31.47.9)  0.968 ms
+ 7  Boyd-MX-re0.net.uga.edu (172.31.47.5)  1.236 ms  1.289 ms  1.125 ms
+ 8  te0-17-0-4-8.ccr41.atl04.atlas.cogentco.com (38.122.46.161)  3.997 ms  3.799 ms  3.870 ms
+ 9  be2788.ccr22.atl02.atlas.cogentco.com (154.54.5.193)  4.002 ms  4.210 ms  4.015 ms
+10  * * *
+11  104.16.181.96 (104.16.181.96)  3.503 ms  3.460 ms  3.468 ms
