@@ -237,7 +237,7 @@ if __name__ == '__main__':
         outputf = args.output + '.json'
         outputpic = args.output + '.pdf'
         with open(outputf, 'w') as jsonFile:
-            json.dump(json_obj, jsonFile, indent=0)
+            json.dump(json_obj, jsonFile, indent=1)
         layout = go.Layout(title='Distribution of Traceroute Latency')
         
         fig = go.Figure(data=data_frame, layout=layout)
@@ -456,7 +456,7 @@ if __name__ == '__main__':
         outputf = args.output + '.json'
         outputpic = args.output + '.pdf'
         with open(outputf, 'w') as jsonFile:
-            json.dump(json_obj, jsonFile, indent=0)
+            json.dump(json_obj, jsonFile, indent=1)
 
         layout = go.Layout(title='Distribution of Traceroute Latency')
         fig = go.Figure(data=data_frame, layout=layout)
