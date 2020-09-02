@@ -6,6 +6,7 @@ import plotly.io as pio
 import time
 
 # Author: Josh Messitte (811976008)
+# Perdici
 # CSCI 6760 Project 1: trstats.py
 # Usage: python3 trstats.py -o OUTPUT [-n NUM_RUNS] [-t TARGET] [-m MAX_HOPS] [-d RUN_DELAY] [--test TEST_DIR]
 
