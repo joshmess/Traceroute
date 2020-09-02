@@ -51,7 +51,7 @@ if __name__ == '__main__':
             while True:
                 # File for each line of a txt file
                 curr = txt_f.readline()
-
+                
                 if len(curr) < 1:
                     break
 
@@ -65,7 +65,9 @@ if __name__ == '__main__':
                     if curr_hop > args.max_hops:
                         break
 
-                    hops_seen.append(curr_hop)
+                    if curr_hop not in hops_seen:
+                        hops_seen.append(curr_hop)
+                        
                     curr = curr[4:]
                     total_parsets = curr.count('(')
 
@@ -189,7 +191,7 @@ if __name__ == '__main__':
                 hop_maxs.append(hop[len(hop) - 1])
                 hop_mins.append(hop[0])
                 if len(hop) % 2 == 0:
-                    hop_meds.append(hop[int(len(hop) / 2)])
+                    hop_meds.append(hop[int(len(hop) / 2)-1])
                 elif len(hop) % 2 == 1:
                     hop_meds.append(hop[int(len(hop) / 2)])
             else:
@@ -205,9 +207,12 @@ if __name__ == '__main__':
             json_obj = []
             already_added = []
 
+            
             for hop in hosts_by_hop:
 
+                
                 if hop_hosts[hop_tracer] != 'No traceroute-detectable hosts' and hops_seen[hop_tracer] not in already_added:
+                    
                     already_added.append(hops_seen[hop_tracer])
                     hop = 'hop '
                     trace = go.Box(
@@ -281,7 +286,8 @@ if __name__ == '__main__':
                     if curr_hop > args.max_hops:
                         break
 
-                    hops_seen.append(curr_hop)
+                    if curr_hop not in hops_seen:
+                        hops_seen.append(curr_hop)
                     curr = curr[4:]
                     total_parsets = curr.count('(')
 
@@ -406,7 +412,7 @@ if __name__ == '__main__':
                 hop_maxs.append(hop[len(hop) - 1])
                 hop_mins.append(hop[0])
                 if len(hop) % 2 == 0:
-                    hop_meds.append(hop[int(len(hop) / 2)])
+                    hop_meds.append(hop[int(len(hop) / 2)-1])
                 elif len(hop) % 2 == 1:
                     hop_meds.append(hop[int(len(hop) / 2)])
             else:
