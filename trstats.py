@@ -6,7 +6,6 @@ import plotly.io as pio
 import time
 
 # Author: Josh Messitte (811976008)
-# Perdici
 # CSCI 6760 Project 1: trstats.py
 # Usage: python3 trstats.py -o OUTPUT [-n NUM_RUNS] [-t TARGET] [-m MAX_HOPS] [-d RUN_DELAY] [--test TEST_DIR]
 
@@ -17,17 +16,12 @@ if __name__ == '__main__':
     prog = 'python3 trstats.py'
     descr = 'Python Wrapper Script to Analyze Traceroute Performance'
     parser = argparse.ArgumentParser(prog=prog, description=descr)
-    parser.add_argument('-o', '--output', type=str, default='output.json', required=True, help='Path and Name of outpt '
-                                                                                               'JSON')
+    parser.add_argument('-o', '--output', type=str, default='output.json', required=True, help='Path and Name of outpt JSON')
     parser.add_argument('-n', '--num_runs', type=int, default=10, help='Number of times traceroute will run')
-    parser.add_argument('-d', '--run_delay', type=int, default=0, help='Number of seconds to wait between two '
-                                                                       'condsectuive runs')
+    parser.add_argument('-d', '--run_delay', type=int, default=0, help='Number of seconds to wait between two condsectuive runs')
     parser.add_argument('-m', '--max_hops', type=int, default=100, help='Number of times traceroute will run')
-    parser.add_argument('-t', '--target', type=str, default='www.yahoo.co.jp',
-                        help='A target domain name or IP address')
-    parser.add_argument('--test', '--test', type=str, default=None, help='Directory containing num_runs text files, '
-                                                                         'each with traceroute output. If present, '
-                                                                         'override and do not run traceroute.')
+    parser.add_argument('-t', '--target', type=str, default='www.yahoo.co.jp',help='A target domain name or IP address')
+    parser.add_argument('--test', '--test', type=str, default=None, help='Directory containing num_runs text files, each with traceroute output. If present, override and do not run traceroute.')
 
     # Parse the given arguments
     args = parser.parse_args()
@@ -259,7 +253,6 @@ if __name__ == '__main__':
 
         while traceroute_counter <= args.num_runs:
             # Outer TR loop
-            
             if traceroute_counter > 1:
                 time.sleep(args.run_delay)
 
