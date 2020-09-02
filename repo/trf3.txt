@@ -1,6 +1,6 @@
 traceroute to www.google.com (108.177.122.103), 30 hops max, 60 byte packets
- 1  172.17.149.1 (172.17.149.1)  0.821 ms  1.237 ms  1.682 ms
- 2  128.192.0.5 (128.192.0.5)  0.277 ms  0.346 ms  0.438 ms
+ 1  172.17.149.1 (172.17.149.1)  2.821 ms  1.237 ms  1.682 ms
+ 2  128.192.0.5 (128.192.0.5)  1 ms  1 ms  1 ms
  3  1023-Boyd-BAgg-R.net.uga.edu (172.31.42.106)  0.0001 ms 1057-Life-BAgg-R.net.uga.edu (172.31.43.106)  0.767 ms 1023-Boyd-BAgg-R.net.uga.edu (172.31.42.106)  1.189 ms
  4  0042-Peabody-Core-R.net.uga.edu (172.31.41.2)  0.911 ms 1023-Boyd-Core-R.net.uga.edu (172.31.40.0)  0.771 ms 0042-Peabody-Core-R.net.uga.edu (172.31.41.0)  0.832 ms
  5  Boyd-MX-re0.net.uga.edu (172.31.41.24)  0.603 ms  0.620 ms Peabody-MX-re0.net.uga.edu (172.31.40.26)  0.812 ms
