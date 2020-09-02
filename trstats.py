@@ -258,6 +258,7 @@ if __name__ == '__main__':
 
         while traceroute_counter <= args.num_runs:
             # Outer TR loop
+            
             if traceroute_counter > 1:
                 time.sleep(args.run_delay)
 
