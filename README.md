@@ -1,5 +1,5 @@
 # trstats
-Computer Networks 
+Computer Networks 6760 
 
 ```
 python3 trstats.py -o output [-n NUM_RUNS] [-t TARGET] [-d RUN_DELAY] [-m MAX_HOPS] [--test TEST_DIR]
